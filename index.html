@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📸 Generate Gambar by Anam</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --secondary: #8b5cf6;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --gray: #6b7280;
+            --border: #e5e7eb;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f5f7ff 0%, #eef2ff 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .author-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .main-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+
+        .powered-by {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-top: 20px;
+        }
+
+        .powered-by a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .powered-by a:hover {
+            text-decoration: underline;
+        }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .control-panel {
+            background: white;
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            animation: slideLeft 0.6s ease;
+        }
+
+        @keyframes slideLeft {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .panel-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--dark);
+        }
+
+        .panel-title i {
+            color: var(--primary);
+        }
+
+        .control-group {
+            margin-bottom: 25px;
+        }
+
+        .control-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .control-label i {
+            color: var(--primary);
+            width: 20px;
+        }
+
+        .size-value {
+            font-weight: 600;
+            color: var(--primary);
+            margin-left: auto;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            -webkit-appearance: none;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 4px;
+            outline: none;
+            margin-top: 5px;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 22px;
+            height: 22px;
+            background: white;
+            border-radius: 50%;
+            border: 3px solid var(--primary);
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .category-btn {
+            padding: 12px 15px;
+            background: var(--light);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--dark);
+            transition: var(--transition);
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .category-btn:hover {
+            border-color: var(--primary);
+            background: white;
+        }
+
+        .category-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.2);
+        }
+
+        .toggle-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 5px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 54px;
+            height: 28px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 16px 20px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--light);
+            color: var(--dark);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #059669);
+            color: white;
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-success:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .stats {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: var(--radius);
+            padding: 20px;
+            color: white;
+            margin-top: 25px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .stat-item i {
+            font-size: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .image-panel {
+            animation: slideRight 0.6s ease;
+        }
+
+        @keyframes slideRight {
+            from { transform: translateX(20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .image-container {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .image-header {
+            padding: 20px 30px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .image-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .image-title i {
+            color: var(--primary);
+        }
+
+        .image-info {
+            display: flex;
+            gap: 20px;
+            background: var(--light);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            color: var(--gray);
+        }
+
+        .image-wrapper {
+            position: relative;
+            width: 100%;
+            background: #f8fafc;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+        }
+
+        #generatedImage {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+        }
+
+        .overlay-text {
+            text-align: center;
+            color: var(--primary);
+        }
+
+        .overlay-text i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        .overlay-text p {
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .image-actions {
+            padding: 25px 30px;
+            display: flex;
+            gap: 15px;
+            border-top: 1px solid var(--border);
+        }
+
+        .url-container {
+            flex: 1;
+            display: flex;
+            gap: 10px;
+        }
+
+        #imageUrl {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Inter', monospace;
+            font-size: 0.9rem;
+            background: var(--light);
+        }
+
+        .btn-copy {
+            padding: 0 25px;
+            background: var(--dark);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-copy:hover {
+            background: #374151;
+            transform: translateY(-2px);
+        }
+
+        .quick-presets {
+            background: white;
+            border-radius: var(--radius);
+            padding: 25px 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .presets-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .presets-title i {
+            color: var(--primary);
+        }
+
+        .preset-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 12px;
+        }
+
+        .preset-btn {
+            padding: 15px 10px;
+            background: var(--light);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .preset-btn:hover {
+            border-color: var(--primary);
+            background: white;
+            transform: translateY(-3px);
+        }
+
+        .preset-name {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .preset-size {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .history-section {
+            background: white;
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .history-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .history-title i {
+            color: var(--primary);
+        }
+
+        .btn-clear {
+            padding: 10px 20px;
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .btn-clear:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+        }
+
+        .history-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 12px;
+        }
+
+        .history-item {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .history-item:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .history-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .history-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .history-item:hover .history-overlay {
+            opacity: 1;
+        }
+
+        .history-overlay i {
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 25px;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--dark);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-weight: 500;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast i {
+            font-size: 1.2rem;
+        }
+
+        .loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .loading.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--border);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .image-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .image-actions {
+                flex-direction: column;
+            }
+            
+            .url-container {
+                width: 100%;
+            }
+            
+            .btn-copy {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .preset-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 2rem;
+            }
+            
+            .header {
+                padding: 20px 15px;
+            }
+            
+            .control-panel, .image-container, .quick-presets, .history-section {
+                padding: 20px;
+            }
+            
+            .preset-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="author-badge">
+                <i class="fas fa-user-circle"></i>
+                Generate Gambar by Anam
+            </div>
+            <h1 class="main-title">📸 Generator Gambar Profesional</h1>
+            <p class="subtitle">Generate gambar berkualitas tinggi secara unlimited - 100% Gratis</p>
+            <div class="powered-by">
+                <i class="fas fa-bolt"></i>
+                Powered by <a href="https://picsum.photos" target="_blank">Lorem Picsum</a> • 
+                <span id="serverStatus">Server: Online</span>
+            </div>
+        </header>
+
+        <div class="main-layout">
+            <div class="control-panel">
+                <h2 class="panel-title">
+                    <i class="fas fa-sliders-h"></i>
+                    Pengaturan Gambar
+                </h2>
+
+                <div class="control-group">
+                    <label class="control-label">
+                        <i class="fas fa-expand-alt"></i>
+                        Lebar
+                        <span class="size-value" id="widthValue">800px</span>
+                    </label>
+                    <input type="range" id="width" min="100" max="2000" value="800" step="10">
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">
+                        <i class="fas fa-compress-alt"></i>
+                        Tinggi
+                        <span class="size-value" id="heightValue">600px</span>
+                    </label>
+                    <input type="range" id="height" min="100" max="2000" value="600" step="10">
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">
+                        <i class="fas fa-tint"></i>
+                        Blur: <span id="blurValue">0</span>
+                    </label>
+                    <input type="range" id="blur" min="0" max="10" value="0" step="1">
+                </div>
+
+                <div class="control-group">
+                    <div class="toggle-group">
+                        <label class="control-label">
+                            <i class="fas fa-palette"></i>
+                            Grayscale
+                        </label>
+                        <label class="switch">
+                            <input type="checkbox" id="grayscale">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">
+                        <i class="fas fa-tags"></i>
+                        Kategori Gambar
+                    </label>
+                    <div class="category-grid" id="categoryGrid">
+                        <button class="category-btn active" data-category="nature">
+                            🌿 Alam
+                        </button>
+                        <button class="category-btn" data-category="city">
+                            🏙️ Kota
+                        </button>
+                        <button class="category-btn" data-category="tech">
+                            💻 Teknologi
+                        </button>
+                        <button class="category-btn" data-category="people">
+                            👥 Orang
+                        </button>
+                        <button class="category-btn" data-category="animals">
+                            🐾 Hewan
+                        </button>
+                        <button class="category-btn" data-category="food">
+                            🍕 Makanan
+                        </button>
+                        <button class="category-btn" data-category="sports">
+                            ⚽ Olahraga
+                        </button>
+                        <button class="category-btn" data-category="business">
+                            💼 Bisnis
+                        </button>
+                        <button class="category-btn" data-category="fashion">
+                            👗 Fashion
+                        </button>
+                        <button class="category-btn" data-category="travel">
+                            ✈️ Travel
+                        </button>
+                        <button class="category-btn" data-category="art">
+                            🎨 Seni
+                        </button>
+                        <button class="category-btn" data-category="random">
+                            🎲 Acak
+                        </button>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" id="generateBtn">
+                        <i class="fas fa-magic"></i>
+                        Generate Gambar Baru
+                    </button>
+                    <button class="btn btn-secondary" id="applyBtn">
+                        <i class="fas fa-sync-alt"></i>
+                        Terapkan Filter
+                    </button>
+                    <button class="btn btn-success" id="downloadBtn" disabled>
+                        <i class="fas fa-download"></i>
+                        Download Gambar
+                    </button>
+                </div>
+
+                <div class="stats">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <i class="fas fa-layer-group"></i>
+                            <div>
+                                <span class="stat-value" id="totalGenerated">0</span>
+                                <span class="stat-label">Total Generated</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-seedling"></i>
+                            <div>
+                                <span class="stat-value" id="seedValue">-</span>
+                                <span class="stat-label">Seed ID</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-infinity"></i>
+                            <div>
+                                <span class="stat-value">∞</span>
+                                <span class="stat-label">Unlimited</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="image-panel">
+                <div class="image-container">
+                    <div class="image-header">
+                        <h2 class="image-title">
+                            <i class="fas fa-image"></i>
+                            Gambar Hasil Generate
+                        </h2>
+                        <div class="image-info">
+                            <span id="imageSize">800×600</span>
+                            <span id="imageType">JPG</span>
+                        </div>
+                    </div>
+
+                    <div class="image-wrapper">
+                        <div class="loading" id="imageLoading">
+                            <div class="loader"></div>
+                        </div>
+                        <img src="" alt="Generated image" id="generatedImage" crossorigin="anonymous">
+                        <div class="image-overlay" id="imageOverlay">
+                            <div class="overlay-text">
+                                <i class="fas fa-image"></i>
+                                <p>Klik "Generate" untuk membuat gambar</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="image-actions">
+                        <div class="url-container">
+                            <input type="text" id="imageUrl" readonly placeholder="URL gambar akan muncul di sini...">
+                            <button class="btn-copy" id="copyBtn">
+                                <i class="far fa-copy"></i>
+                                Copy URL
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-presets">
+                    <h3 class="presets-title">
+                        <i class="fas fa-bolt"></i>
+                        Ukuran Cepat
+                    </h3>
+                    <div class="preset-grid" id="presetGrid">
+                        <button class="preset-btn" data-width="1920" data-height="1080">
+                            <div class="preset-name">HD 1080p</div>
+                            <div class="preset-size">1920×1080</div>
+                        </button>
+                        <button class="preset-btn" data-width="1280" data-height="720">
+                            <div class="preset-name">HD 720p</div>
+                            <div class="preset-size">1280×720</div>
+                        </button>
+                        <button class="preset-btn" data-width="1024" data-height="768">
+                            <div class="preset-name">Tablet</div>
+                            <div class="preset-size">1024×768</div>
+                        </button>
+                        <button class="preset-btn" data-width="800" data-height="600">
+                            <div class="preset-name">Standard</div>
+                            <div class="preset-size">800×600</div>
+                        </button>
+                        <button class="preset-btn" data-width="400" data-height="400">
+                            <div class="preset-name">Square</div>
+                            <div class="preset-size">400×400</div>
+                        </button>
+                        <button class="preset-btn" data-width="600" data-height="900">
+                            <div class="preset-name">Portrait</div>
+                            <div class="preset-size">600×900</div>
+                        </button>
+                        <button class="preset-btn" data-width="1200" data-height="400">
+                            <div class="preset-name">Banner</div>
+                            <div class="preset-size">1200×400</div>
+                        </button>
+                        <button class="preset-btn" data-width="256" data-height="256">
+                            <div class="preset-name">Icon</div>
+                            <div class="preset-size">256×256</div>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="history-section">
+                    <div class="history-header">
+                        <h3 class="history-title">
+                            <i class="fas fa-history"></i>
+                            Riwayat Gambar
+                        </h3>
+                        <button class="btn-clear" id="clearHistoryBtn">
+                            <i class="fas fa-trash-alt"></i>
+                            Hapus Semua
+                        </button>
+                    </div>
+                    <div class="history-grid" id="historyGrid">
+                        <div class="history-empty" id="historyEmpty">
+                            <i class="fas fa-images fa-2x"></i>
+                            <p>Belum ada gambar</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>
+                © 2024 Generate Gambar by Anam • 
+                <a href="https://picsum.photos" target="_blank">Powered by Lorem Picsum</a> • 
+                Unlimited Free Images • 
+                <span id="memoryUsage">Memory: Optimized</span>
+            </p>
+        </footer>
+
+        <div class="toast" id="toast">
+            <i class="fas fa-check-circle"></i>
+            <span id="toastMessage">Pesan akan muncul di sini</span>
+        </div>
+    </div>
+
+    <script>
+        class ImageGenerator {
+            constructor() {
+                this.initializeElements();
+                this.setupEventListeners();
+                this.loadFromLocalStorage();
+                this.initialize();
+            }
+
+            initializeElements() {
+                this.generatedImage = document.getElementById('generatedImage');
+                this.imageOverlay = document.getElementById('imageOverlay');
+                this.imageLoading = document.getElementById('imageLoading');
+                this.imageUrl = document.getElementById('imageUrl');
+                this.imageSize = document.getElementById('imageSize');
+                this.historyGrid = document.getElementById('historyGrid');
+                this.historyEmpty = document.getElementById('historyEmpty');
+                
+                this.widthSlider = document.getElementById('width');
+                this.heightSlider = document.getElementById('height');
+                this.blurSlider = document.getElementById('blur');
+                this.grayscaleToggle = document.getElementById('grayscale');
+                
+                this.widthValue = document.getElementById('widthValue');
+                this.heightValue = document.getElementById('heightValue');
+                this.blurValue = document.getElementById('blurValue');
+                
+                this.generateBtn = document.getElementById('generateBtn');
+                this.applyBtn = document.getElementById('applyBtn');
+                this.downloadBtn = document.getElementById('downloadBtn');
+                this.copyBtn = document.getElementById('copyBtn');
+                this.clearHistoryBtn = document.getElementById('clearHistoryBtn');
+                this.categoryButtons = document.querySelectorAll('.category-btn');
+                this.presetButtons = document.querySelectorAll('.preset-btn');
+                
+                this.totalGenerated = document.getElementById('totalGenerated');
+                this.seedValue = document.getElementById('seedValue');
+                this.serverStatus = document.getElementById('serverStatus');
+                this.memoryUsage = document.getElementById('memoryUsage');
+                
+                this.toast = document.getElementById('toast');
+                this.toastMessage = document.getElementById('toastMessage');
+                
+                this.currentSeed = this.generateRandomSeed();
+                this.currentCategory = 'nature';
+                this.currentWidth = 800;
+                this.currentHeight = 600;
+                this.currentBlur = 0;
+                this.currentGrayscale = false;
+                this.history = [];
+                this.totalCount = 0;
+                
+                this.categorySeeds = {
+                    'nature': [1000, 1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009],
+                    'city': [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009],
+                    'tech': [3000, 3001, 3002, 3003, 3004, 3005, 3006, 3007, 3008, 3009],
+                    'people': [4000, 4001, 4002, 4003, 4004, 4005, 4006, 4007, 4008, 4009],
+                    'animals': [5000, 5001, 5002, 5003, 5004, 5005, 5006, 5007, 5008, 5009],
+                    'food': [6000, 6001, 6002, 6003, 6004, 6005, 6006, 6007, 6008, 6009],
+                    'sports': [7000, 7001, 7002, 7003, 7004, 7005, 7006, 7007, 7008, 7009],
+                    'business': [8000, 8001, 8002, 8003, 8004, 8005, 8006, 8007, 8008, 8009],
+                    'fashion': [9000, 9001, 9002, 9003, 9004, 9005, 9006, 9007, 9008, 9009],
+                    'travel': [1100, 1101, 1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109],
+                    'art': [1200, 1201, 1202, 1203, 1204, 1205, 1206, 1207, 1208, 1209],
+                    'random': []
+                };
+            }
+
+            initialize() {
+                this.updateDisplayValues();
+                this.updateImageSizeDisplay();
+                
+                setTimeout(() => {
+                    this.generateImage();
+                    this.showToast('🖼️ Generator Gambar siap digunakan!', 'success');
+                }, 1000);
+                
+                this.startSystemMonitor();
+            }
+
+            setupEventListeners() {
+                this.widthSlider.addEventListener('input', (e) => {
+                    this.currentWidth = parseInt(e.target.value);
+                    this.updateDisplayValues();
+                });
+
+                this.heightSlider.addEventListener('input', (e) => {
+                    this.currentHeight = parseInt(e.target.value);
+                    this.updateDisplayValues();
+                });
+
+                this.blurSlider.addEventListener('input', (e) => {
+                    this.currentBlur = parseInt(e.target.value);
+                    this.blurValue.textContent = this.currentBlur;
+                });
+
+                this.grayscaleToggle.addEventListener('change', (e) => {
+                    this.currentGrayscale = e.target.checked;
+                });
+
+                this.categoryButtons.forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const category = e.target.dataset.category;
+                        this.setCategory(category);
+                    });
+                });
+
+                // Preset buttons
+                this.presetButtons.forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const width = parseInt(e.target.closest('.preset-btn').dataset.width);
+                        const height = parseInt(e.target.closest('.preset-btn').dataset.height);
+                        this.setDimensions(width, height);
+                        this.showToast(`✅ Set ukuran: ${width}×${height}`, 'success');
+                    });
+                });
+
+                this.generateBtn.addEventListener('click', () => this.generateImage());
+                this.applyBtn.addEventListener('click', () => this.applyFilters());
+                this.downloadBtn.addEventListener('click', () => this.downloadImage());
+                this.copyBtn.addEventListener('click', () => this.copyImageUrl());
+                this.clearHistoryBtn.addEventListener('click', () => this.clearHistory());
+
+                this.generatedImage.addEventListener('click', () => {
+                    if (this.generatedImage.src) {
+                        this.generateImage();
+                    }
+                });
+            }
+
+            generateRandomSeed() {
+                return Math.floor(Math.random() * 10000) + 1;
+            }
+
+            getCategorySeed(category) {
+                if (category === 'random') {
+                    return this.generateRandomSeed();
+                }
+                
+                const seeds = this.categorySeeds[category];
+                if (seeds && seeds.length > 0) {
+                    return seeds[Math.floor(Math.random() * seeds.length)];
+                }
+                
+                return this.generateRandomSeed();
+            }
+
+            setCategory(category) {
+                this.currentCategory = category;
+                
+                this.categoryButtons.forEach(btn => {
+                    if (btn.dataset.category === category) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+                
+                this.showToast(`🎯 Kategori: ${this.getCategoryName(category)}`, 'info');
+            }
+
+            getCategoryName(category) {
+                const names = {
+                    'nature': 'Alam',
+                    'city': 'Kota',
+                    'tech': 'Teknologi',
+                    'people': 'Orang',
+                    'animals': 'Hewan',
+                    'food': 'Makanan',
+                    'sports': 'Olahraga',
+                    'business': 'Bisnis',
+                    'fashion': 'Fashion',
+                    'travel': 'Travel',
+                    'art': 'Seni',
+                    'random': 'Acak'
+                };
+                return names[category] || category;
+            }
+
+            setDimensions(width, height) {
+                this.currentWidth = width;
+                this.currentHeight = height;
+                this.widthSlider.value = width;
+                this.heightSlider.value = height;
+                this.updateDisplayValues();
+                this.updateImage();
+            }
+
+            updateDisplayValues() {
+                this.widthValue.textContent = `${this.currentWidth}px`;
+                this.heightValue.textContent = `${this.currentHeight}px`;
+            }
+
+            updateImageSizeDisplay() {
+                this.imageSize.textContent = `${this.currentWidth}×${this.currentHeight}`;
+            }
+
+            async generateImage() {
+                this.imageLoading.classList.add('active');
+                this.generatedImage.style.opacity = '0';
+                
+                this.currentSeed = this.getCategorySeed(this.currentCategory);
+                
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                this.updateImage();
+                
+                this.showToast(`🎲 Gambar ${this.getCategoryName(this.currentCategory)} berhasil digenerate!`, 'success');
+            }
+
+            applyFilters() {
+                this.updateImage();
+                this.showToast('✨ Filter berhasil diterapkan!', 'info');
+            }
+
+            updateImage() {
+                let url = `https://picsum.photos/seed/${this.currentSeed}/${this.currentWidth}/${this.currentHeight}`;
+                
+                const params = [];
+                if (this.currentBlur > 0) {
+                    params.push(`blur=${this.currentBlur}`);
+                }
+                if (this.currentGrayscale) {
+                    params.push('grayscale');
+                }
+                
+                if (params.length > 0) {
+                    url += `?${params.join('&')}`;
+                }
+
+                this.generatedImage.onload = () => {
+                    this.imageLoading.classList.remove('active');
+                    this.generatedImage.style.opacity = '1';
+                    this.imageOverlay.style.display = 'none';
+                };
+                
+                this.generatedImage.src = url;
+                this.imageUrl.value = url;
+                
+                this.seedValue.textContent = this.currentSeed;
+                this.updateImageSizeDisplay();
+                
+                this.addToHistory(url);
+                
+                this.downloadBtn.disabled = false;
+            }
+
+            async downloadImage() {
+                try {
+                    this.showToast('⬇️ Mengunduh gambar...', 'info');
+                    
+                    const response = await fetch(this.generatedImage.src);
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    
+                    a.href = url;
+                    a.download = `gambar-${this.currentSeed}-${this.currentWidth}x${this.currentHeight}.jpg`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                    
+                    this.showToast('✅ Gambar berhasil diunduh!', 'success');
+                } catch (error) {
+                    this.showToast('❌ Gagal mengunduh gambar', 'error');
+                    console.error('Download error:', error);
+                }
+            }
+
+            copyImageUrl() {
+                this.imageUrl.select();
+                this.imageUrl.setSelectionRange(0, 99999);
+                document.execCommand('copy');
+                
+                const originalText = this.copyBtn.innerHTML;
+                this.copyBtn.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
+                this.showToast('📋 URL berhasil disalin!', 'success');
+                
+                setTimeout(() => {
+                    this.copyBtn.innerHTML = originalText;
+                }, 2000);
+            }
+
+            addToHistory(url) {
+                const historyItem = {
+                    url,
+                    seed: this.currentSeed,
+                    width: this.currentWidth,
+                    height: this.currentHeight,
+                    category: this.currentCategory,
+                    timestamp: Date.now()
+                };
+
+                this.history.unshift(historyItem);
+                
+                if (this.history.length > 20) {
+                    this.history = this.history.slice(0, 20);
+                }
+
+                this.totalCount++;
+                this.updateHistoryDisplay();
+                this.saveToLocalStorage();
+            }
+
+            updateHistoryDisplay() {
+                this.totalGenerated.textContent = this.totalCount.toLocaleString();
+                
+                if (this.history.length === 0) {
+                    this.historyEmpty.style.display = 'block';
+                    this.historyGrid.innerHTML = '';
+                    return;
+                }
+
+                this.historyEmpty.style.display = 'none';
+                this.historyGrid.innerHTML = this.history.map((item, index) => `
+                    <div class="history-item" 
+                         data-seed="${item.seed}" 
+                         data-category="${item.category}"
+                         style="animation-delay: ${index * 0.05}s">
+                        <img src="${item.url}" 
+                             alt="History image ${index + 1}" 
+                             loading="lazy">
+                        <div class="history-overlay">
+                            <i class="fas fa-search"></i>
+                        </div>
+                    </div>
+                `).join('');
+                
+                document.querySelectorAll('.history-item').forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        const seed = e.currentTarget.dataset.seed;
+                        const category = e.currentTarget.dataset.category;
+                        this.loadFromHistory(seed, category);
+                    });
+                });
+            }
+
+            loadFromHistory(seed, category) {
+                this.currentSeed = parseInt(seed);
+                this.setCategory(category);
+                this.updateImage();
+                this.showToast('📜 Memuat dari riwayat...', 'info');
+            }
+
+            clearHistory() {
+                if (this.history.length === 0) return;
+                
+                if (confirm('Hapus semua riwayat gambar? Tindakan ini tidak dapat dibatalkan.')) {
+                    this.history = [];
+                    this.updateHistoryDisplay();
+                    localStorage.removeItem('imageGeneratorData');
+                    this.showToast('🗑️ Riwayat berhasil dihapus', 'info');
+                }
+            }
+
+            saveToLocalStorage() {
+                const data = {
+                    history: this.history,
+                    totalCount: this.totalCount,
+                    settings: {
+                        width: this.currentWidth,
+                        height: this.currentHeight,
+                        blur: this.currentBlur,
+                        grayscale: this.currentGrayscale,
+                        category: this.currentCategory
+                    }
+                };
+                localStorage.setItem('imageGeneratorData', JSON.stringify(data));
+            }
+
+            loadFromLocalStorage() {
+                try {
+                    const data = JSON.parse(localStorage.getItem('imageGeneratorData'));
+                    if (data) {
+                        this.history = data.history || [];
+                        this.totalCount = data.totalCount || 0;
+                        
+                        if (data.settings) {
+                            this.currentWidth = data.settings.width || 800;
+                            this.currentHeight = data.settings.height || 600;
+                            this.currentBlur = data.settings.blur || 0;
+                            this.currentGrayscale = data.settings.grayscale || false;
+                            this.currentCategory = data.settings.category || 'nature';
+                            
+                            this.widthSlider.value = this.currentWidth;
+                            this.heightSlider.value = this.currentHeight;
+                            this.blurSlider.value = this.currentBlur;
+                            this.grayscaleToggle.checked = this.currentGrayscale;
+                            
+                            this.setCategory(this.currentCategory);
+                        }
+                        
+                        this.updateHistoryDisplay();
+                    }
+                } catch (error) {
+                    console.log('Tidak ada data tersimpan');
+                }
+            }
+
+            showToast(message, type = 'info') {
+                this.toastMessage.textContent = message;
+                
+                const icons = {
+                    success: 'fas fa-check-circle',
+                    error: 'fas fa-exclamation-circle',
+                    info: 'fas fa-info-circle',
+                    warning: 'fas fa-exclamation-triangle'
+                };
+                
+                this.toast.querySelector('i').className = icons[type] || icons.info;
+                
+                const colors = {
+                    success: '#10b981',
+                    error: '#ef4444',
+                    info: '#3b82f6',
+                    warning: '#f59e0b'
+                };
+                
+                this.toast.style.background = colors[type] || colors.info;
+                
+                this.toast.classList.add('show');
+                
+                setTimeout(() => {
+                    this.toast.classList.remove('show');
+                }, 3000);
+            }
+
+            startSystemMonitor() {
+                setInterval(() => {
+                    const statuses = ['Online', 'Optimal', 'Stabil'];
+                    const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+                    this.serverStatus.textContent = `Server: ${randomStatus}`;
+                }, 15000);
+
+                setInterval(() => {
+                    const usage = Math.floor(Math.random() * 20) + 30;
+                    this.memoryUsage.textContent = `Memory: ${usage}MB digunakan`;
+                }, 10000);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            window.imageGenerator = new ImageGenerator();
+        });
+    </script>
+</body>
+</html>
